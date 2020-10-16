@@ -1,0 +1,24 @@
+{
+  "name": "2020-10-14-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roninbar/2020-10-14-chat.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roninbar/2020-10-14-chat/issues"
+  },
+  "homepage": "https://github.com/roninbar/2020-10-14-chat#readme",
+  "devDependencies": {
+    "eslint": "^7.11.0",
+    "eslint-plugin-react": "^7.21.4"
+  }
+}
