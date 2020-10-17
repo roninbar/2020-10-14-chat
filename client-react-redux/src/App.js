@@ -43,13 +43,32 @@ const useStyles = makeStyles(function (theme) {
     main: {
       flexBasis: '83%',
       overflowY: 'auto',
+      position: 'relative',
+      '& > .overlay': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        zIndex: -1,
+        opacity: 0.25,
+        backgroundImage: 'url(/bg-chat-tile-light.png)',
+        backgroundAttachment: 'fixed',
+      },
+      '& > .underlay': {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0,
+        zIndex: -2,
+        backgroundColor: '#e5ddd5',
+      },
     },
     footer: {
       flexBasis: '7%',
     },
     messages: {
-      backgroundColor: '#e5ddd5',
-      backgroundImage: 'url(/bg-chat-tile-light.png)',
     },
     card: {
       margin: theme.spacing(1),
@@ -112,7 +131,9 @@ function App() {
               Messages
             </Typography>
           </Grid>
-          <Grid item component="main" container direction="column" wrap="nowrap" className={[classes.main, classes.messages].join(' ')}>
+          <Grid item component="main" container direction="column" wrap="nowrap" className={classes.main}>
+            <div className="overlay" />
+            <div className="underlay" />
             {messages.map(({ id, sender, time, text }) => (
               <Grid item
                 container
