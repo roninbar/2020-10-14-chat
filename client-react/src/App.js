@@ -4,71 +4,77 @@ import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
 
+const chats = [
+  { id: 1, name: 'Girit' },
+  { id: 2, name: 'Doovshanit' },
+  { id: 3, name: 'Bzique' },
+  { id: 4, name: 'Namir' },
+];
+
+const messages = [
+  { id: 1, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
+  { id: 2, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
+  { id: 3, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
+  { id: 4, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
+  { id: 5, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
+  { id: 6, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
+  { id: 7, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
+  { id: 8, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
+  { id: 9, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
+  { id: 10, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
+  { id: 11, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
+  { id: 12, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
+];
+
 const useStyles = makeStyles(function (theme) {
   return {
     container: {
-      height: '90vh',
+      height: '100vh',
     },
     outerGridContainer: {
       height: '100%',
     },
+    messageList: {
+      height: '100%',
+    },
     header: {
-      height: '50px',
+      flexBasis: '7%',
+    },
+    main: {
+      flexBasis: '83%',
+      overflowY: 'auto',
     },
     footer: {
-      height: '50px',
+      flexBasis: '7%',
     },
     messages: {
       backgroundColor: '#e5ddd5',
       backgroundImage: 'url(/bg-chat-tile-light.png)',
     },
-    message: {
+    card: {
       margin: theme.spacing(1),
       backgroundColor: function (props) {
         return props.sender === 'me' ? '#dcf8c6' : 'white';
       },
     },
+    cardContent: {
+      display: 'flex',
+      flexFlow: 'column nowrap',
+      padding: theme.spacing(1),
+    },
+    sender: {
+      alignSelf: 'flex-start',
+    },
+    time: {
+      alignSelf: 'flex-end',
+    },
   };
 });
 
-const chats = [
-  { name: 'Nitai' },
-];
-
-const messages = [
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-];
-
 function MessageCard(props) {
-  const { children, sender, ...other } = props;
+  const { children, ...other } = props;
   const classes = useStyles(props);
-  return <Card {...other} className={classes.message}>{children}</Card>
+  return <Card {...other} className={classes.card}>{children}</Card>
 }
 
 MessageCard.propTypes = {
@@ -81,37 +87,46 @@ function App() {
     <Container className={classes.container}>
       <Grid container spacing={0} className={classes.outerGridContainer}>
         {/* Chat List */}
-        <Grid item container xs={3}>
+        <Grid item xs={3} container direction="column" wrap="nowrap">
           <Grid item xs={12} component="header" className={classes.header}>
             <Typography variant="h5">
               Chats
             </Typography>
           </Grid>
-          <Grid item xs={12} component="main">
-            {chats.map(({ name }) => (
-              <Grid item xs={12}>
+          <Grid item xs={12} container direction="column" wrap="nowrap" component="main" className={classes.main}>
+            {chats.map(({ id, name }) => (
+              <Grid item key={id}>
                 {name}
               </Grid>
             ))}
           </Grid>
         </Grid>
         {/* Message List */}
-        <Grid item xs={9} container direction="column">
+        <Grid item xs={9} container direction="column" wrap="nowrap" className={classes.messageList}>
           <Grid item component="header" className={classes.header}>
             <Typography variant="h5">
               Messages
             </Typography>
           </Grid>
-          <Grid item component="main" className={classes.messages}>
-            {messages.map(({ sender, time, text }) => (
-              <Grid item container direction="row" justify={sender === 'me' ? 'flex-start' : 'flex-end'} alignItems="center">
-                <MessageCard variant="outlined" sender={sender} className={classes.message}>
-                  <CardContent>
-                    {sender !== 'me' && <Typography variant="caption">{sender}</Typography>}
+          <Grid item component="main" container direction="column" wrap="nowrap" className={[classes.main, classes.messages].join(' ')}>
+            {messages.map(({ id, sender, time, text }) => (
+              <Grid item
+                container
+                direction="row"
+                justify={sender === 'me' ? 'flex-start' : 'flex-end'}
+                alignItems="center"
+                key={id}
+                className={classes.message}
+              >
+                <MessageCard sender={sender}>
+                  <CardContent className={classes.cardContent}>
+                    {sender !== 'me' && (
+                      <Typography variant="caption" className={classes.sender}>{sender}</Typography>
+                    )}
                     <Typography variant="body1">
                       {text}
                     </Typography>
-                    <Typography variant="caption">{time}</Typography>
+                    <Typography variant="caption" className={classes.time}>{time}</Typography>
                   </CardContent>
                 </MessageCard>
               </Grid>
