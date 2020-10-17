@@ -1,5 +1,5 @@
 import './App.css';
-import { Card, CardContent, Container, Grid, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, Container, Grid, TextField, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -68,6 +68,10 @@ const useStyles = makeStyles(function (theme) {
     time: {
       alignSelf: 'flex-end',
     },
+    input: {
+      padding: theme.spacing(1),
+      backgroundColor: '#f0f0f0',
+    },
   };
 });
 
@@ -132,8 +136,20 @@ function App() {
               </Grid>
             ))}
           </Grid>
-          <Grid item component="footer" className={classes.footer}>
-            Footer
+          <Grid item container component="footer" className={classes.footer}>
+            <Grid item xs={12} container justify="center" className={classes.input}>
+              <Grid item xs={10}>
+                <TextField
+                  variant="outlined"
+                  label="Type a message"
+                  fullWidth
+                  autoFocus
+                />
+              </Grid>
+            </Grid>
+            {/* <Grid item xs={1}>
+              <Button type="submit">Send</Button>
+            </Grid> */}
           </Grid>
         </Grid>
       </Grid>
