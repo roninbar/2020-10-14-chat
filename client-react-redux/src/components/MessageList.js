@@ -14,15 +14,17 @@ export const MessageList = withRedux(function (props) {
             <div className="underlay" />
             {props.messages?.map(({ id, sender, time, text }) => (
                 <Grid item container direction="row" justify={sender === 'me' ? 'flex-start' : 'flex-end'} alignItems="center" key={id} className={props.classes.message}>
-                    <MessageCard sender={sender}>
-                        <CardContent className={props.classes.cardContent}>
-                            {sender !== 'me' && <Typography variant="caption" className={props.classes.sender}>{sender}</Typography>}
-                            <Typography variant="body1">
-                                {text}
-                            </Typography>
-                            <Typography variant="caption" className={props.classes.time}>{time}</Typography>
-                        </CardContent>
-                    </MessageCard>
+                    <Grid item xs={8}>
+                        <MessageCard sender={sender}>
+                            <CardContent className={props.classes.cardContent}>
+                                {sender !== 'me' && <Typography variant="caption" className={props.classes.sender}>{sender}</Typography>}
+                                <Typography variant="body1">
+                                    {text}
+                                </Typography>
+                                <Typography variant="caption" className={props.classes.time}>{time}</Typography>
+                            </CardContent>
+                        </MessageCard>
+                    </Grid>
                 </Grid>
             ))}
         </Grid>
