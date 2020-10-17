@@ -26,46 +26,8 @@ export const useStyles = makeStyles(function (theme) {
     header: {
       flexBasis: '7%',
     },
-    main: {
-      flexBasis: '83%',
-      overflowY: 'auto',
-      position: 'relative',
-      '& > .overlay': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        zIndex: -1,
-        opacity: 0.125,
-        backgroundImage: 'url(/images/bg-chat-tile-light.png)',
-        backgroundAttachment: 'fixed',
-      },
-      '& > .underlay': {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-        zIndex: -2,
-        backgroundColor: '#e5ddd5',
-      },
-    },
     footer: {
       flexBasis: '7%',
-    },
-    messages: {
-    },
-    cardContent: {
-      display: 'flex',
-      flexFlow: 'column nowrap',
-      padding: theme.spacing(1),
-    },
-    sender: {
-      alignSelf: 'flex-start',
-    },
-    time: {
-      alignSelf: 'flex-end',
     },
     input: {
       padding: theme.spacing(1),
@@ -101,7 +63,7 @@ function App() {
               Messages
             </Typography>
           </Grid>
-          <MessageList classes={classes} />
+          <MessageList />
           <Grid item container component="footer" className={classes.footer}>
             <Grid item xs={12} container justify="center" className={classes.input}>
               <Grid item xs={10}>
