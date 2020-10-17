@@ -1,6 +1,6 @@
 import { CardContent, Grid, Typography } from '@material-ui/core';
 import React from 'react';
-import { messages } from './App';
+import { messages } from '../App';
 import MessageCard from './MessageCard';
 
 export function MessageList(props) {

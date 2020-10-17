@@ -2,8 +2,8 @@ import './App.css';
 import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
-import { MessageList } from './MessageList';
-import { NewMessageForm } from './NewMessageForm';
+import { MessageList } from './components/MessageList';
+import { NewMessageForm } from './components/NewMessageForm';
 
 const chats = [
   { id: 1, name: 'Girit' },
@@ -52,7 +52,7 @@ export const useStyles = makeStyles(function (theme) {
         bottom: 0,
         right: 0,
         zIndex: -1,
-        opacity: 0.25,
+        opacity: 0.125,
         backgroundImage: 'url(/bg-chat-tile-light.png)',
         backgroundAttachment: 'fixed',
       },

@@ -1,7 +1,7 @@
 import { Card } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useStyles } from './App';
+import { useStyles } from '../App';
 
 export default function MessageCard(props) {
   const { children, ...other } = props;
