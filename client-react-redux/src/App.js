@@ -1,8 +1,9 @@
 import './App.css';
-import { Card, CardContent, Container, Grid, TextField, Typography } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import React from 'react';
+import { MessageList } from './MessageList';
+import { NewMessageForm } from './NewMessageForm';
 
 const chats = [
   { id: 1, name: 'Girit' },
@@ -11,7 +12,7 @@ const chats = [
   { id: 4, name: 'Namir' },
 ];
 
-const messages = [
+export const messages = [
   { id: 1, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
   { id: 2, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
   { id: 3, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
@@ -26,7 +27,7 @@ const messages = [
   { id: 12, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
 ];
 
-const useStyles = makeStyles(function (theme) {
+export const useStyles = makeStyles(function (theme) {
   return {
     container: {
       height: '100vh',
@@ -94,16 +95,6 @@ const useStyles = makeStyles(function (theme) {
   };
 });
 
-function MessageCard(props) {
-  const { children, ...other } = props;
-  const classes = useStyles(props);
-  return <Card {...other} className={classes.card}>{children}</Card>
-}
-
-MessageCard.propTypes = {
-  sender: PropTypes.string.isRequired,
-};
-
 function App() {
   const classes = useStyles();
   return (
@@ -131,41 +122,11 @@ function App() {
               Messages
             </Typography>
           </Grid>
-          <Grid item component="main" container direction="column" wrap="nowrap" className={classes.main}>
-            <div className="overlay" />
-            <div className="underlay" />
-            {messages.map(({ id, sender, time, text }) => (
-              <Grid item
-                container
-                direction="row"
-                justify={sender === 'me' ? 'flex-start' : 'flex-end'}
-                alignItems="center"
-                key={id}
-                className={classes.message}
-              >
-                <MessageCard sender={sender}>
-                  <CardContent className={classes.cardContent}>
-                    {sender !== 'me' && (
-                      <Typography variant="caption" className={classes.sender}>{sender}</Typography>
-                    )}
-                    <Typography variant="body1">
-                      {text}
-                    </Typography>
-                    <Typography variant="caption" className={classes.time}>{time}</Typography>
-                  </CardContent>
-                </MessageCard>
-              </Grid>
-            ))}
-          </Grid>
+          <MessageList classes={classes} />
           <Grid item container component="footer" className={classes.footer}>
             <Grid item xs={12} container justify="center" className={classes.input}>
               <Grid item xs={10}>
-                <TextField
-                  variant="outlined"
-                  label="Type a message"
-                  fullWidth
-                  autoFocus
-                />
+                <NewMessageForm />
               </Grid>
             </Grid>
             {/* <Grid item xs={1}>
