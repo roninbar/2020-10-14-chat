@@ -12,21 +12,6 @@ const chats = [
   { id: 4, name: 'Namir' },
 ];
 
-export const messages = [
-  { id: 1, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { id: 2, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { id: 3, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { id: 4, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { id: 5, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { id: 6, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { id: 7, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { id: 8, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { id: 9, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-  { id: 10, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-  { id: 11, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-  { id: 12, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-];
-
 export const useStyles = makeStyles(function (theme) {
   return {
     container: {
