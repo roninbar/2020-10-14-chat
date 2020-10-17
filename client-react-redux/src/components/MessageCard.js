@@ -1,7 +1,17 @@
-import { Card } from '@material-ui/core';
+import { Card, makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useStyles } from '../App';
+
+const useStyles = makeStyles(function (theme) {
+  return {
+    card: {
+      margin: theme.spacing(1),
+      backgroundColor: function (props) {
+        return props.sender === 'me' ? '#dcf8c6' : 'white';
+      },
+    },
+  };
+});
 
 export default function MessageCard(props) {
   const { children, ...other } = props;

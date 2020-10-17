@@ -56,12 +56,6 @@ export const useStyles = makeStyles(function (theme) {
     },
     messages: {
     },
-    card: {
-      margin: theme.spacing(1),
-      backgroundColor: function (props) {
-        return props.sender === 'me' ? '#dcf8c6' : 'white';
-      },
-    },
     cardContent: {
       display: 'flex',
       flexFlow: 'column nowrap',

@@ -7,22 +7,22 @@ export const loadAllMessagesAsync = createAsyncThunk(
     },
 );
 
+const lorem = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore nostrum explicabo, dignissimos quas debitis beatae soluta fugit quidem praesentium quaerat ab? Autem iure expedita aliquam reiciendis tempora suscipit, debitis iste.';
+
 const chatSlice = createSlice({
     name: 'chat',
     initialState: {
         messages: [
-            { id: 1, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-            { id: 2, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-            { id: 3, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-            { id: 4, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-            { id: 5, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-            { id: 6, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-            { id: 7, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-            { id: 8, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-            { id: 9, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
-            { id: 10, sender: 'Nitai', time: '11:29', text: 'מישהו משהו?' },
-            { id: 11, sender: 'me', time: '13:49', text: 'נראה לי שכמו שכתוב פה:' },
-            { id: 12, sender: 'Nitai', time: '14:56', text: 'לא ממש הבנתי איך אני עושה את זה דרך הקליינט... מישהו הצליח?' },
+            { id: 1, time: '01:23', sender: 'me', text: lorem },
+            { id: 2, time: '01:23', sender: 'you', text: lorem },
+            { id: 3, time: '01:23', sender: 'me', text: lorem },
+            { id: 4, time: '01:23', sender: 'you', text: lorem },
+            { id: 5, time: '01:23', sender: 'me', text: lorem },
+            { id: 6, time: '01:23', sender: 'you', text: lorem },
+            { id: 7, time: '01:23', sender: 'me', text: lorem },
+            { id: 8, time: '01:23', sender: 'you', text: lorem },
+            { id: 9, time: '01:23', sender: 'me', text: lorem },
+            { id: 10, time: '01:23', sender: 'you', text: lorem },
         ],
     },
     reducers: {
