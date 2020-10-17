@@ -38,7 +38,7 @@ export const useStyles = makeStyles(function (theme) {
         right: 0,
         zIndex: -1,
         opacity: 0.125,
-        backgroundImage: 'url(/bg-chat-tile-light.png)',
+        backgroundImage: 'url(/images/bg-chat-tile-light.png)',
         backgroundAttachment: 'fixed',
       },
       '& > .underlay': {
