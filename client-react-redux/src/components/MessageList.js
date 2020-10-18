@@ -1,5 +1,5 @@
 import { CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import MessageCard from './MessageCard';
 
@@ -40,6 +40,7 @@ const useStyles = makeStyles(function (theme) {
         },
         time: {
             alignSelf: 'flex-end',
+            color: '#aaa',
         },
     };
 });
@@ -50,12 +51,25 @@ const withRedux = connect(mapStateToProps);
 
 export const MessageList = withRedux(function (props) {
     const classes = useStyles(props);
+    const lastMessage = useRef();
+    useEffect(function () {
+        return lastMessage.current?.scrollIntoView(false);
+    }, [props.messages]);
     return (
         <Grid item component="main" container direction="column" wrap="nowrap" className={classes.main}>
             <div className="overlay" />
             <div className="underlay" />
-            {props.messages?.map(({ id, sender, time, text }) => (
-                <Grid item container direction="row" justify={sender === 'me' ? 'flex-start' : 'flex-end'} alignItems="center" key={id} className={classes.message}>
+            {props.messages?.map(({ id, sender, time, text }, idx) => (
+                <Grid
+                    item
+                    container
+                    direction="row"
+                    justify={sender === 'me' ? 'flex-start' : 'flex-end'}
+                    alignItems="center"
+                    className={classes.message}
+                    key={id}
+                    ref={idx === props.messages?.length - 1 ? lastMessage : null}
+                >
                     <Grid item xs={8}>
                         <MessageCard sender={sender}>
                             <CardContent className={classes.cardContent}>

@@ -29,8 +29,9 @@ const chatSlice = createSlice({
         truncateMessages(state) {
             state.messages.length = 0;
         },
-        addMessage(state, { payload: message }) {
-            state.messages.push(message);
+        addMessage(state, { payload: text }) {
+            const now = new Date();
+            state.messages.push({ sender: 'me', time: now.toLocaleTimeString(), text });
         },
     },
 });
