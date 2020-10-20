@@ -7,7 +7,7 @@ const useStyles = makeStyles(function (theme) {
     card: {
       margin: theme.spacing(1),
       backgroundColor: function (props) {
-        return props.sender === 'me' ? '#dcf8c6' : 'white';
+        return props.status === 'received' ? 'white' : '#dcf8c6';
       },
     },
   };
@@ -21,5 +21,6 @@ export default function MessageCard(props) {
 
 MessageCard.propTypes = {
   sender: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
