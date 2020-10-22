@@ -27,7 +27,7 @@ const SidebarChat = (props) => {
 };
 
 SidebarChat.propTypes = {
-    onSideBarClicked: PropTypes.function,
+    onSideBarClicked: PropTypes.func,
     picture: PropTypes.string,
     name: PropTypes.string,
     lastMessage: PropTypes.string,
