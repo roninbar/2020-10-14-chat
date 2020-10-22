@@ -1,22 +1,24 @@
-import './App.css';
-import { AppBar } from '@material-ui/core';
-import { Chat } from 'components/Chat';
-import PrivateRoute from 'components/PrivateRoute';
-import { SignInForm } from 'components/SignInForm';
-import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React, { useState } from "react";
+import "./App.css";
+import Chat from "components/Chat/Chat";
+import Sidebar from "components/Sidebar/Sidebar";
 
 function App() {
+  const [chatData, setChatData] = useState({});
+  function handleChatClick(sideBarData) {
+    if (sideBarData?.id) {
+      setChatData(sideBarData);
+    }
+  }
+
   return (
-    <BrowserRouter>
-      <AppBar />
-      <Switch>
-        <Route path="/login" component={SignInForm} />
-        <PrivateRoute path="/" component={Chat} />
-      </Switch>
-    </BrowserRouter>
+    <div className="app">
+      <div className="app__body">
+        <Sidebar onSideBarClicked={handleChatClick} />
+        <Chat chatData={chatData} />
+      </div>
+    </div>
   );
 }
 
 export default App;
-
