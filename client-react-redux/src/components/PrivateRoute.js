@@ -6,22 +6,19 @@ import { Redirect, Route } from 'react-router-dom';
 
 function PrivateRoute({ username, component: Component, ...rest }) {
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        {
-          return username
-            ? (
-              <Component {...props} />
-            )
-            : (
-              <Redirect to="/login" />
-            );
-        }
-      }
-    />
-  );                                           
+    return (
+        <Route
+            {...rest}
+            render={props => username
+                ? (
+                    <Component {...props} />
+                )
+                : (
+                    <Redirect to="/login" />
+                )
+            }
+        />
+    );
 
 }
 
