@@ -16,9 +16,5 @@
   "bugs": {
     "url": "https://github.com/roninbar/2020-10-14-chat/issues"
   },
-  "homepage": "https://github.com/roninbar/2020-10-14-chat#readme",
-  "devDependencies": {
-    "eslint": "^7.11.0",
-    "eslint-plugin-react": "^7.21.4"
-  }
+  "homepage": "https://github.com/roninbar/2020-10-14-chat#readme"
 }
