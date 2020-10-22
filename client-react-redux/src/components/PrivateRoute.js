@@ -9,13 +9,14 @@ function PrivateRoute({ username, component: Component, ...rest }) {
     return (
         <Route
             {...rest}
-            render={props => username
-                ? (
-                    <Component {...props} />
-                )
-                : (
-                    <Redirect to="/login" />
-                )
+            render={
+                props => username
+                    ? (
+                        <Component {...props} />
+                    )
+                    : (
+                        <Redirect to="/login" />
+                    )
             }
         />
     );

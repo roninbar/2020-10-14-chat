@@ -1,10 +1,15 @@
 import './App.css';
 import Chat from 'components/Chat/Chat';
+import PrivateRoute from 'components/PrivateRoute';
 import Sidebar from 'components/Sidebar/Sidebar';
+import SignInForm from 'components/SignInForm';
 import React, { useState } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-function App() {
+function MainPage() {
+
     const [chatData, setChatData] = useState({});
+
     function handleChatClick(sideBarData) {
         if (sideBarData?.id) {
             setChatData(sideBarData);
@@ -18,6 +23,18 @@ function App() {
                 <Chat chatData={chatData} />
             </div>
         </div>
+    );
+}
+
+function App() {
+
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route exact path="/login" component={SignInForm} />
+                <PrivateRoute exact path="/" component={MainPage} />
+            </Switch>
+        </BrowserRouter>
     );
 }
 

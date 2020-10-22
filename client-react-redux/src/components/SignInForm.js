@@ -48,7 +48,7 @@ export const SignInForm = connectToRedux(null, { setUser })(function ({ setUser 
                     classes={classes}
                 >
                     Enter Chat
-        </Button>
+                </Button>
             </Grid>
         </form>
     );
