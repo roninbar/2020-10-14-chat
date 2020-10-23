@@ -1,61 +1,66 @@
-import React from 'react';
-import './Sidebar.css';
-import sampleData from './sampleData/data.json';
-
-import SidebarChat from './SidebarChat';
-// import Icons from '@material-ui/core'
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import AddIcon from '@material-ui/icons/Add';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import { Avatar, IconButton } from '@material-ui/core';
-import Grow from '@material-ui/core/Grow';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
+import Grow from '@material-ui/core/Grow';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import AddIcon from '@material-ui/icons/Add';
+import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import PropTypes from 'prop-types';
+import React from 'react';
+import sampleData from './sampleData/data.json';
+import SidebarChat from './SidebarChat';
+import './Sidebar.css';
 
-const Sidebar = ({ onSideBarClicked }) => {
+function Sidebar({ onSideBarClicked }) {
+
     const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen);
-    };
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return;
-        }
 
-        setOpen(false);
-    };
-    const getChatMessages = (event) => {
+    const anchorRef = React.useRef(null);
+
+    function handleToggle() {
+        setOpen(prevOpen => !prevOpen);
+    }
+
+    function handleClose(event) {
+        if (!anchorRef.current?.contains(event.target)) {
+            setOpen(false);
+        }
+    }
+
+    function getChatMessages(event) {
         onSideBarClicked(event);
-    };
+    }
+
     function handleListKeyDown(event) {
         if (event.key === 'Tab') {
             event.preventDefault();
             setOpen(false);
         }
     }
-    const groups = sampleData.map((group, index) => {
-        return (<SidebarChat id={group.id} key={index}
+
+    const groups = sampleData.map((group, index) => (
+        <SidebarChat id={group.id} key={index}
             typing={group.typing}
             picture={group.picture}
             name={group.name}
-            lastMessage={group.lastMessage} onSideBarClicked={getChatMessages}
-        />);
-    });
+            lastMessage={group.lastMessage}
+            onSideBarClicked={getChatMessages}
+        />
+    ));
 
     const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+
+    React.useEffect(function () {
         if (prevOpen.current === true && open === false) {
             anchorRef.current.focus();
         }
-
         prevOpen.current = open;
     }, [open]);
+
     return (
         <div className="sidebar">
             <div className="sidebar__header">
@@ -64,7 +69,6 @@ const Sidebar = ({ onSideBarClicked }) => {
                     <IconButton title="Status">
                         <DonutLargeIcon />
                     </IconButton>
-
                     <IconButton title="New Chat">
                         <AddIcon />
                     </IconButton>
@@ -84,33 +88,34 @@ const Sidebar = ({ onSideBarClicked }) => {
                         transition
                         disablePortal
                     >
-                        {({ TransitionProps, placement }) => (
-                            <Grow
-                                {...TransitionProps}
-                                style={{
-                                    transformOrigin:
-                                        placement === 'bottom' ? 'center top' : 'center bottom',
-                                }}
-                            >
-                                <Paper>
-                                    <ClickAwayListener onClickAway={handleClose}>
-                                        <MenuList
-                                            autoFocusItem={open}
-                                            id="menu-list-grow"
-                                            onKeyDown={handleListKeyDown}
-                                        >
-                                            <MenuItem onClick={handleClose}>New Group</MenuItem>
-                                            <MenuItem onClick={handleClose}>Create a room</MenuItem>
-                                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                                            <MenuItem onClick={handleClose}>Archived</MenuItem>
-                                            <MenuItem onClick={handleClose}>Starred</MenuItem>
-                                            <MenuItem onClick={handleClose}>Setting</MenuItem>
-                                            <MenuItem onClick={handleClose}>Log out</MenuItem>
-                                        </MenuList>
-                                    </ClickAwayListener>
-                                </Paper>
-                            </Grow>
-                        )}
+                        {function ({ TransitionProps, placement }) {
+                            return (
+                                <Grow
+                                    {...TransitionProps}
+                                    style={{
+                                        transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom',
+                                    }}
+                                >
+                                    <Paper>
+                                        <ClickAwayListener onClickAway={handleClose}>
+                                            <MenuList
+                                                autoFocusItem={open}
+                                                id="menu-list-grow"
+                                                onKeyDown={handleListKeyDown}
+                                            >
+                                                <MenuItem onClick={handleClose}>New Group</MenuItem>
+                                                <MenuItem onClick={handleClose}>Create a room</MenuItem>
+                                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                                <MenuItem onClick={handleClose}>Archived</MenuItem>
+                                                <MenuItem onClick={handleClose}>Starred</MenuItem>
+                                                <MenuItem onClick={handleClose}>Setting</MenuItem>
+                                                <MenuItem onClick={handleClose}>Log out</MenuItem>
+                                            </MenuList>
+                                        </ClickAwayListener>
+                                    </Paper>
+                                </Grow>
+                            );
+                        }}
                     </Popper>
                 </div>
             </div>
@@ -125,7 +130,7 @@ const Sidebar = ({ onSideBarClicked }) => {
             </div>
         </div>
     );
-};
+}
 
 Sidebar.propTypes = {
     onSideBarClicked: PropTypes.func,
