@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import './SidebarChat.css';
 
-const SidebarChat = (props) => {
+function SidebarChat(props) {
 
-    const handleChatClick = () => {
+    function handleChatClick() {
         props.onSideBarClicked(props);
-    };
+    }
 
     let typing;
     if (props.typing) {
@@ -24,7 +24,8 @@ const SidebarChat = (props) => {
             </div>
         </div>
     );
-};
+    
+}
 
 SidebarChat.propTypes = {
     onSideBarClicked: PropTypes.func,
