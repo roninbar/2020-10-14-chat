@@ -31,7 +31,6 @@ export default function MessageList({ messages }) {
                     container
                     direction="row"
                     justify={status === 'pending' || status === 'sent' ? 'flex-start' : 'flex-end'}
-                    className={classes.message}
                     key={id}
                 >
                     <Grid item xs={8}>

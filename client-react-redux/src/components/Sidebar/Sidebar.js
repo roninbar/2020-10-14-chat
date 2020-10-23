@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import AddIcon from '@material-ui/icons/Add';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
-import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -79,7 +79,7 @@ function Sidebar({ onSideBarClicked }) {
                         aria-haspopup="true"
                         onClick={handleToggle}
                     >
-                        <MoreHorizIcon />
+                        <MoreVertIcon />
                     </IconButton>
                     <Popper
                         open={open}
