@@ -20,7 +20,6 @@ export default function MessageCard(props) {
 }
 
 MessageCard.propTypes = {
-    sender: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
 };
 

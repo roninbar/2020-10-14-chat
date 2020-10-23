@@ -15,23 +15,10 @@ export const sendMessageAsync = createAsyncThunk(
     },
 );
 
-// const lorem = 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore nostrum explicabo, dignissimos quas debitis beatae soluta fugit quidem praesentium quaerat ab? Autem iure expedita aliquam reiciendis tempora suscipit, debitis iste.';
-
 const chatSlice = createSlice({
     name: 'chat',
     initialState: {
-        messages: [
-            // { id: 1, time: '01:23', sender: 'me', text: lorem, status: 'sent' },
-            // { id: 2, time: '01:23', sender: 'you', text: lorem, status: 'received' },
-            // { id: 3, time: '01:23', sender: 'me', text: lorem, status: 'sent' },
-            // { id: 4, time: '01:23', sender: 'you', text: lorem, status: 'received' },
-            // { id: 5, time: '01:23', sender: 'me', text: lorem, status: 'sent' },
-            // { id: 6, time: '01:23', sender: 'you', text: lorem, status: 'received' },
-            // { id: 7, time: '01:23', sender: 'me', text: lorem, status: 'sent' },
-            // { id: 8, time: '01:23', sender: 'you', text: lorem, status: 'received' },
-            // { id: 9, time: '01:23', sender: 'me', text: lorem, status: 'sent' },
-            // { id: 10, time: '01:23', sender: 'you', text: lorem, status: 'received' },
-        ],
+        messages: [],
     },
     reducers: {
         truncateMessages(state) {
@@ -41,16 +28,12 @@ const chatSlice = createSlice({
             state.messages.push({ time, sender, text, status: 'sent' });
         },
         receiveMessage(state, { payload: { time, sender, text } }) {
-            state.messages.push({ time, sender, text, status: 'received' });
-        }
+            state.messages.push({ time, sender, text, status: 'received' }); 
+        },
     },
     extraReducers: {
-        [sendMessageAsync.pending](state, { meta: { arg } }) {
-            state.messages.push({ ...arg, status: 'pending' });
-        },
-        [sendMessageAsync.fulfilled](state, { type, payload }) {
-        },
-        [sendMessageAsync.rejected](state, { type, error }) {
+        [sendMessageAsync.pending](state, { meta: { requestId: id, arg } }) {
+            state.messages.push({ id, ...arg, status: 'pending' });
         },
     },
 });

@@ -1,110 +1,88 @@
 import { Avatar, IconButton } from '@material-ui/core';
-import {
-    InsertEmoticon,
-    AttachFile,
-    MoreVert,
-    SearchOutlined,
-    Mic,
-} from '@material-ui/icons';
-import React, { useState, useRef } from 'react';
+import { AttachFile, InsertEmoticon, Mic, MoreVert, SearchOutlined } from '@material-ui/icons';
+import MessageList from 'components/MessageList';
+import { sendMessageAsync } from 'features/chat/chatSlice';
+import React, { useEffect, useRef, useState } from 'react';
+import { connect } from 'react-redux';
 import './Chat.css';
-import sampleData from '../Sidebar/sampleData/data.json';
 
-const Chat = ({ chatData }) => {
+const LOCALE = 'he-IL';
+
+function Chat({ username, messages, sendMessageAsync }) {
+
+    function onSubmitMessage(e) {
+        e.preventDefault();
+        const now = new Date();
+        sendMessageAsync({
+            time: now.toLocaleTimeString(LOCALE),
+            sender: username,
+            text: input,
+        });
+        setInput('');
+    }
+
     const [input, setInput] = useState('');
-    // const [messages, setMessages] = useState([]);
+
+    useEffect(function () {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView();
+        }
+    }, [messages]);
 
     const messagesEndRef = useRef(null);
 
-    let messages = [];
-
     let groupData;
-    const sendMessage = (e) => {
-        e.preventDefault();
-        if (messages) {
-            const newMessage = { message: input, date: '19-09-20 19:32', from: 'Me' };
-            // setMessages((messages) => [...messages.value, newMessage]);
-            messages.push(newMessage);
-            setInput('');
-            setTimeout(() => {
-                messagesEndRef.current.scrollIntoView();
-            }, 10);
 
-        }
-    };
-    if (Object.keys(chatData).length === 0) {
-        return <div className="chat"></div>;
-    } else {
-        const isGroup = sampleData.filter((g) => g.id === chatData.id);
-        if (isGroup.length) {
-            groupData = isGroup[0];
-            if (groupData.chat) {
-                messages = groupData.chat;
-            }
-        }
-        return (
-            <div className="chat">
-                <div className="chat__header">
-                    <Avatar src={groupData?.picture ?? null} />
-                    <div className="chat__headerInfo">
-                        <h3>{groupData?.name ?? 'Room name'}</h3>
-                        {/* <p>{groupData?.lastMessage ?? " Last seen on"} </p> */}
-                    </div>
-                    <div className="chat__headerRight">
-                        <IconButton>
-                            <SearchOutlined />
-                        </IconButton>
-                        <IconButton>
-                            <MoreVert />
-                        </IconButton>
-                    </div>
+    return (
+        <div className="chat">
+            <div className="chat__header">
+                <Avatar src={groupData?.picture ?? null} />
+                <div className="chat__headerInfo">
+                    <h3>{groupData?.name ?? 'Room name'}</h3>
                 </div>
-                <div className="chat__body">
-                    {messages.map((message, index) => {
-                        let classResult =
-                            message.from === 'Me'
-                                ? 'chat_message chat_reciever'
-                                : 'chat_message';
-
-                        classResult += message.typing ? ' chat__typing' : '';
-
-                        return (
-                            <p key={index} className={classResult}>
-                                <span className="chat__name">{message.from}</span>
-                                {message.message}
-                                <span className="chat__timespan">
-                                    {new Date().toLocaleString('he-IL')}
-                                </span>
-                            </p>
-                        );
-                    })}
-                    <div ref={messagesEndRef} />
-                </div>
-                <div className="chat__footer">
+                <div className="chat__headerRight">
                     <IconButton>
-                        <InsertEmoticon />
+                        <SearchOutlined />
                     </IconButton>
                     <IconButton>
-                        <AttachFile />
-                    </IconButton>
-                    <form>
-                        <input
-                            onChange={(e) => setInput(e.target.value)}
-                            value={input}
-                            placeholder="Type a message"
-                            type="text"
-                        />
-                        <button onClick={sendMessage} type="submit">
-                            Send a message
-                        </button>
-                    </form>
-                    <IconButton>
-                        <Mic />
+                        <MoreVert />
                     </IconButton>
                 </div>
             </div>
-        );
-    }
-};
+            <div className="chat__body">
+                <MessageList messages={messages}/>
+                <div ref={messagesEndRef} />
+            </div>
+            <div className="chat__footer">
+                <IconButton>
+                    <InsertEmoticon />
+                </IconButton>
+                <IconButton>
+                    <AttachFile />
+                </IconButton>
+                <form onSubmit={onSubmitMessage}>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={({ target: { value } }) => setInput(value)}
+                        placeholder="Type a message"
+                    />
+                    <button type="submit">Send</button>
+                </form>
+                <IconButton>
+                    <Mic />
+                </IconButton>
+            </div>
+        </div>
+    );
 
-export default Chat;
+}
+
+const mapStateToProps = ({ user: { name: username }, chat: { messages } }) => ({ username, messages });
+
+const mapDispatchToProps = { sendMessageAsync };
+
+const withRedux = connect(mapStateToProps, mapDispatchToProps);
+
+export default withRedux(Chat);
+

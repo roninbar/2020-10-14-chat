@@ -1,21 +1,12 @@
 import { CardContent, Grid, makeStyles, Typography } from '@material-ui/core';
-import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 import MessageCard from './MessageCard';
 
 const useStyles = makeStyles(function (theme) {
     return {
-        main: {
-            flexBasis: '83%',
-            overflowY: 'auto',
-            backgroundColor: '#e5ddd5',
-            backgroundImage: 'url(/images/bg-chat-tile-light.png)',
-            backgroundAttachment: 'fixed',
-        },
         cardContent: {
             display: 'flex',
             flexFlow: 'column nowrap',
-            padding: theme.spacing(1),
         },
         sender: {
             alignSelf: 'flex-start',
@@ -28,31 +19,20 @@ const useStyles = makeStyles(function (theme) {
     };
 });
 
-const mapStateToProps = ({ chat: { messages } }) => ({ messages });
+export default function MessageList({ messages }) {
 
-const withRedux = connect(mapStateToProps);
+    const classes = useStyles();
 
-export const MessageList = withRedux(function (props) {
-
-    const classes = useStyles(props);
-
-    const lastMessage = useRef();
-
-    useEffect(function () {
-        return lastMessage.current?.scrollIntoView(false);
-    }, [props.messages]);
-    
     return (
-        <Grid item component="main" container direction="column" wrap="nowrap" className={classes.main}>
-            {props.messages?.map(({ id, sender, time, text, status }, idx) => (
+        <Grid item component="main" container direction="column" wrap="nowrap">
+            {messages.map(({ id, sender, time, text, status }) => (
                 <Grid
                     item
                     container
                     direction="row"
-                    justify={status === 'received' ? 'flex-end' : 'flex-start'}
+                    justify={status === 'pending' || status === 'sent' ? 'flex-start' : 'flex-end'}
                     className={classes.message}
-                    key={time}
-                    ref={idx === props.messages?.length - 1 ? lastMessage : null}
+                    key={id}
                 >
                     <Grid item xs={8}>
                         <MessageCard sender={sender} status={status}>
@@ -60,9 +40,7 @@ export const MessageList = withRedux(function (props) {
                                 {status === 'received' && (
                                     <Typography variant="caption" className={classes.sender}>{sender}</Typography>
                                 )}
-                                <Typography variant="body1">
-                                    {text}
-                                </Typography>
+                                <Typography variant="body1">{text}</Typography>
                                 <Typography variant="caption" className={classes.time}>{time}</Typography>
                             </CardContent>
                         </MessageCard>
@@ -71,5 +49,6 @@ export const MessageList = withRedux(function (props) {
             ))}
         </Grid>
     );
-});
+
+}
 
