@@ -12,7 +12,7 @@ const useStyles = makeStyles(function (theme) {
     };
 });
 
-export const SignInForm = connectToRedux(null, { setUser })(function ({ setUser }) {
+export default connectToRedux(null, { setUser })(function ({ setUser }) {
 
     const [username, setUsername] = useState('');
 
