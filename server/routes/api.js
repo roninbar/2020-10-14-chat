@@ -1,7 +1,8 @@
 const expressJwt = require('express-jwt');
+const express = require('express');
+const _ = require('lodash');
 const authApi = require('./api/auth');
 const chatApi = require('./api/chat');
-const express = require('express');
 const User = require('../entities/User');
 
 const SECRET = process.env['SECRET'];
@@ -16,7 +17,7 @@ const userApi = new express.Router();
 
 userApi.get('/:id', async function ({ params: { id } }, res) {
     const user = await User.findById(id);
-    return user ? res.json(user) : res.sendStatus(404);
+    return user ? res.json(_(user.toObject()).omit('passwordHash')) : res.sendStatus(404);
 });
 
 userApi.post('/', async function ({ body: { firstName, lastName, username, password } }, res) {
