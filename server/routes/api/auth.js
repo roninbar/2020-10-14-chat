@@ -8,8 +8,8 @@ const SECRET = process.env['SECRET'];
 const authApi = new express.Router();
 
 authApi.post('/login', async function ({ body: { username, password } }, res) {
-    const user = await User.findOne({ username, password });
-    return user
+    const user = await User.findOne({ username });
+    return user && user.verify(password)
         ? res.json({ token: jwt.sign({ userId: user._id }, SECRET, { expiresIn: '1m' }) })
         : res.sendStatus(401);
 });

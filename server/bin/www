@@ -4,8 +4,9 @@
  * Module dependencies.
  */
 
+var { createWebSocket } = require('../socket');
 var app = require('../app');
-var debug = require('debug');
+var debug = require('debug')('server:server');
 var http = require('http');
 
 /**
@@ -22,21 +23,9 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Create a socket.io server.
+ * Create a socket.io web socket.
  */
-const io = require('socket.io')(server);
-
-io.on('connect', function (socket) {
-    debug('server:ws')('Someone has connected to the socket.');
-    socket.on('chat', function (message) {
-        debug('server:ws')(message);
-        socket.broadcast.emit('chat', message);
-    });
-});
-
-io.on('disconnect', function (...args) {
-    debug('server:ws')(`disconnect(${args.join(', ')})`);
-});
+createWebSocket(server);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -103,5 +92,5 @@ function onListening() {
     var bind = typeof addr === 'string'
         ? 'pipe ' + addr
         : 'port ' + addr.port;
-    debug('server:server')('Listening on ' + bind);
+    debug('Listening on ' + bind);
 }
