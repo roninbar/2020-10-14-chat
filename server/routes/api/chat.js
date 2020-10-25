@@ -1,5 +1,5 @@
 const express = require('express');
-const Message = require('../../entities/Message');
+const Message = require('../../models/Message');
 
 const chatApi = new express.Router();
 
@@ -9,4 +9,3 @@ chatApi.get('/sender/:sender/recipient/:recipient', async function ({ params: { 
 });
 
 module.exports = chatApi;
-

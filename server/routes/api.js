@@ -3,7 +3,7 @@ const express = require('express');
 const _ = require('lodash');
 const authApi = require('./api/auth');
 const chatApi = require('./api/chat');
-const User = require('../entities/User');
+const User = require('../models/User');
 
 const SECRET = process.env['SECRET'];
 
@@ -11,7 +11,7 @@ const api = new express.Router();
 
 api.use('/auth', authApi);
 
-api.use('/chat', expressJwt({ secret: SECRET, algorithms: ['HS256'] }), chatApi);
+api.use('/chat', expressJwt({ secret: SECRET, algorithms: ['HS256'] }), chatApi); 
 
 const userApi = new express.Router();
 
@@ -29,4 +29,3 @@ userApi.post('/', async function ({ body: { firstName, lastName, username, passw
 api.use('/user', userApi);
 
 module.exports = api;
-

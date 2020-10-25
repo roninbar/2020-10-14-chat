@@ -15,7 +15,7 @@ import sampleData from './sampleData/data.json';
 import SidebarChat from './SidebarChat';
 import './Sidebar.css';
 
-function Sidebar({ onSideBarClicked }) {
+function Sidebar({ onSideBarClicked, onLogOut }) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -29,6 +29,11 @@ function Sidebar({ onSideBarClicked }) {
         if (!anchorRef.current?.contains(event.target)) {
             setOpen(false);
         }
+    }
+
+    function handleLogOut(event) {
+        handleClose(event);
+        onLogOut();
     }
 
     function getChatMessages(event) {
@@ -104,12 +109,12 @@ function Sidebar({ onSideBarClicked }) {
                                                 onKeyDown={handleListKeyDown}
                                             >
                                                 <MenuItem onClick={handleClose}>New Group</MenuItem>
-                                                <MenuItem onClick={handleClose}>Create a room</MenuItem>
+                                                <MenuItem onClick={handleClose}>Create a Room</MenuItem>
                                                 <MenuItem onClick={handleClose}>Profile</MenuItem>
                                                 <MenuItem onClick={handleClose}>Archived</MenuItem>
                                                 <MenuItem onClick={handleClose}>Starred</MenuItem>
                                                 <MenuItem onClick={handleClose}>Setting</MenuItem>
-                                                <MenuItem onClick={handleClose}>Log out</MenuItem>
+                                                <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
                                             </MenuList>
                                         </ClickAwayListener>
                                     </Paper>

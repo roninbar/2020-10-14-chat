@@ -1,4 +1,4 @@
-const User = require('../../entities/User');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const debug = require('debug');
@@ -9,14 +9,23 @@ const authApi = new express.Router();
 
 authApi.post('/login', async function ({ body: { username, password } }, res) {
     const user = await User.findOne({ username });
-    return user && user.verify(password)
-        ? res.json({ token: jwt.sign({ userId: user._id }, SECRET, { expiresIn: '1m' }) })
-        : res.sendStatus(401);
+    const token = user && user.verify(password) && jwt.sign(user.toObject(), SECRET, { expiresIn: '10m' });
+    return token ? res.json({ token }) : res.sendStatus(401);
 });
 
-authApi.post('/logout', function (req) {
-    debug('server:auth')('Logging out', req);
+authApi.post('/logout', function ({ headers: { authorization }, user }, res) {
+    debug('server:auth')('Logging out', user);
+    const { groups: { token } } = authorization.match(/^Bearer (?<token>[^\s]+)/);
+    // TODO: Add the token to a list of revoked tokens.
+    return res.sendStatus(token && verify(token) ? 205 : 400);
 });
 
 module.exports = authApi;
 
+function verify(token) {
+    try {
+        return jwt.verify(token, SECRET);
+    } catch (err) {
+        return false;
+    }
+}
