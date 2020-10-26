@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "git subtree push --prefix server heroku master",
-    "test": "heroku open login"
+    "heroku-deploy": "git subtree push --prefix server heroku master",
+    "heroku-local": "cd server && heroku local",
+    "heroku-open": "heroku open"
   },
   "repository": {
     "type": "git",
