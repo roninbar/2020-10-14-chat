@@ -9,7 +9,7 @@ const authApi = new express.Router();
 
 authApi.post('/login', async function ({ body: { username, password } }, res) {
     const user = await User.findOne({ username });
-    const token = user && user.verify(password) && jwt.sign(user.toObject(), SECRET, { expiresIn: '10m' });
+    const token = user && user.verify(password) && jwt.sign(user.toObject(), SECRET, { expiresIn: '10 minutes' });
     return token ? res.json({ token }) : res.sendStatus(401);
 });
 

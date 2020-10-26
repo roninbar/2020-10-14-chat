@@ -41,40 +41,38 @@ const userSlice = createSlice({
     initialState: {
         pending: false,
         error: false,
-        name: { first: '', last: '' },
-    },
-    reducers: {
-        setUser(state, { payload: username }) {
-            state.name = username;
-        },
+        info: null,
     },
     extraReducers: {
         [logInAsync.pending](state) {
+            localStorage.removeItem('token');
+            state.info = null;
+            state.error = false;
             state.pending = true;
-            state.name.first = state.name.last = '';
         },
         [logInAsync.fulfilled](state, { payload: { token } }) {
             state.pending = false;
-            state.error = false;
+            state.info = decode(token);
             localStorage.setItem('token', token);
-            const { name } = decode(token);
-            state.name = name;
         },
         [logInAsync.rejected](state, { error }) {
             state.pending = false;
             state.error = error;
         },
         [logOutAsync.pending](state) {
+            state.info = null;
+            state.error = false;
             state.pending = true;
         },
-        [logOutAsync.fulfilled](state, { payload }) {
+        [logOutAsync.fulfilled](state) {
             state.pending = false;
             state.error = false;
-            state.name.first = state.name.last = '';
+            localStorage.removeItem('token');
         },
         [logOutAsync.rejected](state, { error }) {
             state.pending = false;
             state.error = error;
+            localStorage.removeItem('token');
         },
     },
 });

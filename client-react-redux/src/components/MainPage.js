@@ -10,7 +10,7 @@ const MainPage = connectToRedux(null, { logOutAsync })(function ({ logOutAsync, 
 
     async function onLogOut() {
         await logOutAsync();
-        history.goBack();
+        history.push('/login');
     }
 
     function handleChatClick(sideBarData) {
