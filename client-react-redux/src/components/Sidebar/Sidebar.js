@@ -69,7 +69,7 @@ function Sidebar({ onSideBarClicked, onLogOut }) {
     return (
         <div className="sidebar">
             <div className="sidebar__header">
-                <Avatar src="Assets/me.png" />
+                <Avatar src="/images/me.png" />
                 <div className="sidebar__headerRight">
                     <IconButton title="Status">
                         <DonutLargeIcon />
